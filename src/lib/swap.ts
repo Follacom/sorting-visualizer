@@ -1,6 +1,8 @@
+import { Bars } from "./randomBars";
+
 export default function swap(
-  a: { id: string; value: number },
-  b: { id: string; value: number }
+  a: Bars,
+  b: Bars
 ) {
   return [
     { ...a, value: b.value },

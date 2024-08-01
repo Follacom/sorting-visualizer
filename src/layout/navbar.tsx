@@ -17,7 +17,9 @@ export default function Navbar() {
             </div>
             <div className="flex flex-grow items-center">
                 <h1 className="text-2xl">
-                    Sorting Visualizer
+                    <a href="/">
+                        Sorting Visualizer
+                    </a>
                 </h1>
             </div>
         </nav>
