@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply box-border border-slate-300 select-none;
+  }
+
+  html,
+  body,
+  #root {
+    @apply w-dvw h-dvh flex flex-col flex-grow overflow-hidden bg-inherit;
+  }
+  html {
+    @apply bg-slate-100;
+  }
+}
