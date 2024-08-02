@@ -2,6 +2,7 @@ import { useCallback, useMemo, useRef, useState } from "react";
 import randomBars, { Bars } from "../lib/randomBars";
 import shuffle from "../lib/shuffle";
 import Bar from "./bar";
+import { ArrowRightIcon } from "lucide-react";
 
 export type SortProps = {
     range?: number;
@@ -10,7 +11,7 @@ export type SortProps = {
     href?: string;
     sort: (arr: Array<Bars>) => Generator<
         Array<Bars>,
-        void,
+        Array<Bars>,
         [Bars, Bars]
     >
 }
@@ -70,7 +71,10 @@ export default function Sort({ range = 10, delay = 100, href = "#", title = "Sor
 
     return (
         <>
-            <div className="flex justify-center underline bold text-xl"><a href={href}>{title}</a></div>
+            <div className="flex underline bold text-xl justify-around">
+                <a href={href}>{title}</a>
+                <button type="button" onClick={() => display()}><ArrowRightIcon /></button>
+            </div >
             <div className="flex justify-around">
                 <button
                     className="px-2 py-0.5 border rounded"
@@ -85,13 +89,16 @@ export default function Sort({ range = 10, delay = 100, href = "#", title = "Sor
                 <button
                     className="px-2 py-0.5 border rounded"
                     type="button"
-                    onClick={() => setBarValues(Object.fromEntries(shuffle(bars).map(bar => [bar.id, { value: bar.value }])))}
+                    onClick={() => {
+                        setBarValues(Object.fromEntries(shuffle(bars).map(bar => [bar.id, { value: bar.value }])))
+                        algo.current = sort(bars)
+                    }}
                 >Shuffle</button>
             </div>
             <div className="flex flex-grow items-end justify-around mx-2 gap-1">
                 {
                     bars.map(
-                        bar => <Bar key={bar.id} value={barValues[bar.id]?.value || 0} color={barValues[bar.id]?.color} />
+                        bar => <Bar key={bar.id} id={bar.id} value={barValues[bar.id]?.value || 0} color={barValues[bar.id]?.color} />
                     )
                 }
             </div>
